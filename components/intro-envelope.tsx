@@ -58,6 +58,8 @@ export function IntroEnvelope({ children }: { children: React.ReactNode }) {
   const pulseTween = useRef<gsap.core.Tween | null>(null);
 
   useLayoutEffect(() => {
+    // phase must start as "intro" on both server and client to avoid a
+    // hydration mismatch; sync from sessionStorage once mounted instead.
     if (sessionStorage.getItem(STORAGE_KEY) === "true") {
       setPhase("done");
       return;
