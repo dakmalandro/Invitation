@@ -16,6 +16,10 @@
     font-family: var(--font-veneer);
 }
 
+@utility text-cave {
+    font-family: var(--font-caveat);
+}
+
 @theme inline {
     --font-heading: var(--font-sans);
     --font-sans: var(--font-sans);
