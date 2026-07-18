@@ -9,11 +9,11 @@ export default function Home() {
   return (
     <IntroEnvelope>
       <div className='flex min-h-dvh w-full justify-center bg-accent'>
-        <section className='relative flex w-full max-w-md flex-col items-center bg-background'>
+        {/* hero section */}
+        <section className='relative flex h-dvh w-full max-w-md flex-col items-center bg-background'>
           <h1 className='text-brittany pt-8 text-center text-4xl text-accent-foreground sm:text-5xl'>
             Baptism Day
           </h1>
-
           <div className='flex w-2/3 items-center gap-3 py-4'>
             <div className='h-0.5 flex-1 bg-accent' />
             <Heart className='h-4 w-4 shrink-0 fill-accent text-accent' />
@@ -119,7 +119,7 @@ export default function Home() {
 
             <FlipCountdown />
 
-            <div className='aspect-448/255 w-full -mt-14 overflow-hidden'>
+            <div className='aspect-448/255 w-full -mt-14 overflow-hidden [@media(min-height:800px)]:fixed [@media(min-height:800px)]:bottom-0 [@media(min-height:800px)]:left-1/2 [@media(min-height:800px)]:w-full [@media(min-height:800px)]:max-w-md [@media(min-height:800px)]:-translate-x-1/2'>
               <Image
                 src='/bag.png'
                 alt=''
