@@ -66,15 +66,8 @@ export function WoodRollHero({
   return (
     <div
       ref={wrapperRef}
-      className='relative h-[200dvh] w-full max-w-md'>
-      <div className='sticky top-0 h-dvh w-full overflow-hidden'>
-        {/* preview of the next section, revealed as the hero gets clipped away */}
-        <div
-          aria-hidden='true'
-          className='pointer-events-none absolute inset-0 z-0'>
-          {next}
-        </div>
-
+      className='relative h-[150dvh] w-full max-w-md'>
+      <div className='pointer-events-none sticky top-0 z-10 h-dvh w-full overflow-hidden'>
         <div
           ref={heroRef}
           className='absolute inset-0 z-10'>
@@ -97,6 +90,10 @@ export function WoodRollHero({
           </div>
         </div>
       </div>
+
+      {/* the real next section, pulled up under the sticky hero so the wipe
+          hands off directly into it — this is its only instance on the page */}
+      <div className='relative z-0 h-dvh w-full -translate-y-1/2'>{next}</div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Montserrat, Caveat } from "next/font/google";
+import { Montserrat, Caveat, Mynerve } from "next/font/google";
 import localFont from "next/font/local";
 
 export const montserrat = Montserrat({
@@ -9,6 +9,12 @@ export const montserrat = Montserrat({
 export const caveat = Caveat({
   variable: "--font-caveat",
   subsets: ["latin"],
+});
+
+export const mynerve = Mynerve({
+  variable: "--font-mynerve",
+  weight: "400",
+  subsets: ["latin", "greek"],
 });
 
 export const brittany = localFont({

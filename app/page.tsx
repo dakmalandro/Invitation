@@ -4,6 +4,8 @@ import { Heart } from "lucide-react";
 import { IntroEnvelope } from "@/components/intro-envelope";
 import { FlipCountdown } from "@/components/flip-countdown";
 import { WoodRollHero } from "@/components/wood-roll-hero";
+import { DetailsSection } from "@/components/details-section";
+import { ProgrammSection } from "@/components/programm-section";
 import hello3 from "@videos/hello3.mp4";
 
 function HeroSection() {
@@ -22,7 +24,7 @@ function HeroSection() {
       </h1>
 
       <div className='flex h-full w-full flex-1 flex-col items-center'>
-        <div className='relative mx-auto h-60 w-92 max-w-full overflow-hidden'>
+        <div className='relative mx-auto h-60 w-92 max-w-full z-10 overflow-hidden'>
           <Image
             src='/kiosk.png'
             alt=''
@@ -134,27 +136,15 @@ function HeroSection() {
   );
 }
 
-function ComingSoonSection() {
-  return (
-    <section className='relative flex h-dvh w-full max-w-md flex-col items-center justify-center bg-background'>
-      <h2 className='text-brittany text-center text-3xl text-accent-foreground sm:text-4xl'>
-        Coming soon
-      </h2>
-    </section>
-  );
-}
-
 export default function Home() {
   return (
     <IntroEnvelope>
       <div className='flex w-full flex-col items-center bg-accent'>
         <WoodRollHero
           hero={<HeroSection />}
-          next={<ComingSoonSection />}
+          next={<DetailsSection />}
         />
-
-        {/* next page — placeholder, content TBD */}
-        <ComingSoonSection />
+        <ProgrammSection />
       </div>
     </IntroEnvelope>
   );
