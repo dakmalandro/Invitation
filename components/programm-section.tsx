@@ -1,5 +1,10 @@
+"use client";
+
+import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { Church, Camera, Croissant, Donut, Citrus, Heart } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 
 function ProgramIcon({ children }: { children: React.ReactNode }) {
@@ -25,16 +30,21 @@ function ProgramRow({
 }) {
   return (
     <>
-      <span className='self-start pt-[clamp(0.4rem,1.6dvmin,0.65rem)] text-right text-monte text-fluid-sm text-accent-foreground/70 whitespace-nowrap'>
+      <span
+        data-program-row
+        className='self-start pt-[clamp(0.4rem,1.6dvmin,0.65rem)] text-right text-monte text-fluid-sm text-accent-foreground/70 whitespace-nowrap'>
         {time}
       </span>
-      <div className='flex flex-col items-center'>
+      <div
+        data-program-row
+        className='flex flex-col items-center'>
         <ProgramIcon>{icon}</ProgramIcon>
         {connector && (
           <div className='w-px flex-1 border-l border-dashed border-primary/50' />
         )}
       </div>
       <div
+        data-program-row
         className={cn(
           "flex flex-col justify-start gap-0.5",
           connector &&
@@ -54,9 +64,77 @@ function ProgramRow({
 }
 
 export function ProgrammSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const plantRef = useRef<HTMLDivElement>(null);
+  const babyRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const rowEls =
+        sectionRef.current?.querySelectorAll<HTMLElement>(
+          "[data-program-row]",
+        ) ?? [];
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      tl.from(headerRef.current, {
+        y: 28,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.out",
+      })
+        .from(
+          rowEls,
+          {
+            y: 22,
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.45,
+            ease: "power2.out",
+            stagger: 0.07,
+          },
+          ">-0.1",
+        )
+        .from(
+          plantRef.current,
+          {
+            opacity: 0,
+            x: 24,
+            duration: 0.9,
+            ease: "power2.out",
+          },
+          "<",
+        )
+        .from(
+          babyRef.current,
+          {
+            opacity: 0,
+            y: 32,
+            duration: 0.9,
+            ease: "power2.out",
+          },
+          "<",
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='relative flex h-dvh w-full max-w-md flex-col items-center overflow-hidden bg-accent/60'>
-      <div className='pointer-events-none absolute -right-7 top-1/2 z-0 h-2/3 w-1/3 -translate-y-1/2'>
+    <section
+      ref={sectionRef}
+      className='relative flex h-dvh w-full max-w-md flex-col items-center overflow-hidden bg-accent/60'>
+      <div
+        ref={plantRef}
+        className='pointer-events-none absolute -right-7 top-1/2 z-0 h-2/3 w-1/3 -translate-y-1/2'>
         <Image
           src='/plant211x1181.png'
           alt=''
@@ -65,7 +143,9 @@ export function ProgrammSection() {
         />
       </div>
 
-      <div className='relative z-10 flex flex-col items-center gap-0.5 pt-[clamp(0.75rem,4dvmin,2rem)]'>
+      <div
+        ref={headerRef}
+        className='relative z-10 flex flex-col items-center gap-0.5 pt-[clamp(0.75rem,4dvmin,2rem)]'>
         <Image
           src='/hat552x452.png'
           alt=''
@@ -113,7 +193,9 @@ export function ProgrammSection() {
         />
       </div>
 
-      <div className='relative z-10 mt-auto w-full'>
+      <div
+        ref={babyRef}
+        className='relative z-10 mt-auto w-full'>
         <div className='aspect-40/40 w-full -mb-26 -mt-24 overflow-hidden'>
           <Image
             src='/baby3448x558.png'
