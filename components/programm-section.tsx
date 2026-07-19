@@ -196,9 +196,9 @@ export function ProgrammSection() {
       <div
         ref={babyRef}
         className='relative z-10 mt-auto w-full'>
-        <div className='aspect-40/40 w-full -mb-26 -mt-24 overflow-hidden'>
+        <div className='aspect-90/40 w-full -mt-24 overflow-hidden'>
           <Image
-            src='/baby3448x558.png'
+            src='/babyNew.png'
             alt=''
             width={3448}
             height={558}
