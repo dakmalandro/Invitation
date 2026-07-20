@@ -118,7 +118,7 @@ export function AddToCalendar({ event }: { event: CalendarEvent }) {
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Positioner
-          className='outline-hidden'
+          className='z-9999 outline-hidden'
           sideOffset={8}>
           <Menu.Popup
             className={cn(
