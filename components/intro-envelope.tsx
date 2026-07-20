@@ -7,6 +7,8 @@ import { gsap } from "gsap";
 const STORAGE_KEY = "invitation:intro-seen";
 
 const PAPER_TEXTURE = "/paper.jpg";
+const BACKGROUND_MUSIC_SRC = "/music/nani.mp3";
+const BACKGROUND_MUSIC_VOLUME = 0.15;
 
 function paperLayer(tint: string, shade: string): React.CSSProperties {
   return {
@@ -56,12 +58,17 @@ export function IntroEnvelope({ children }: { children: React.ReactNode }) {
   const sealRef = useRef<HTMLButtonElement>(null);
   const sealImageRef = useRef<HTMLDivElement>(null);
   const pulseTween = useRef<gsap.core.Tween | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useLayoutEffect(() => {
     // phase must start as "intro" on both server and client to avoid a
     // hydration mismatch; sync from sessionStorage once mounted instead.
     if (sessionStorage.getItem(STORAGE_KEY) === "true") {
       setPhase("done");
+      if (audioRef.current) {
+        audioRef.current.volume = BACKGROUND_MUSIC_VOLUME;
+        audioRef.current.play().catch(() => {});
+      }
       return;
     }
 
@@ -85,6 +92,11 @@ export function IntroEnvelope({ children }: { children: React.ReactNode }) {
     if (isAnimatingRef.current || phase === "done") return;
     isAnimatingRef.current = true;
     pulseTween.current?.kill();
+
+    if (audioRef.current) {
+      audioRef.current.volume = BACKGROUND_MUSIC_VOLUME;
+      audioRef.current.play().catch(() => {});
+    }
 
     const tl = gsap.timeline({
       defaults: { ease: "power2.inOut" },
@@ -137,12 +149,27 @@ export function IntroEnvelope({ children }: { children: React.ReactNode }) {
       );
   };
 
+  const audioElement = (
+    <audio
+      ref={audioRef}
+      src={BACKGROUND_MUSIC_SRC}
+      loop
+      preload='auto'
+    />
+  );
+
   if (phase === "done") {
-    return <>{children}</>;
+    return (
+      <>
+        {audioElement}
+        {children}
+      </>
+    );
   }
 
   return (
     <>
+      {audioElement}
       <div
         ref={contentRef}
         aria-hidden='true'

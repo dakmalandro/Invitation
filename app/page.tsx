@@ -7,6 +7,7 @@ import { WoodRollHero } from "@/components/wood-roll-hero";
 import { DetailsSection } from "@/components/details-section";
 import { ProgrammSection } from "@/components/programm-section";
 import { LocationSection } from "@/components/location-section";
+import { PresenceConfirmation } from "@/components/presence-confirmation";
 import hello3 from "@videos/hello3.mp4";
 
 function HeroSection() {
@@ -147,6 +148,7 @@ export default function Home() {
         />
         <ProgrammSection />
         <LocationSection />
+        <PresenceConfirmation />
       </div>
     </IntroEnvelope>
   );
