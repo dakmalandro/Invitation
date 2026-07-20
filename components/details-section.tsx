@@ -43,10 +43,10 @@ function DottedHeartDivider() {
 function PeopleRow({ label, names }: { label: string; names: string }) {
   return (
     <div className='flex flex-col items-center gap-1 px-4'>
-      <span className='text-monte text-[80%] tracking-widest text-accent-foreground/70'>
+      <span className='text-mynerve  text-sm short:text-[80%] tracking-widest text-accent-foreground/70'>
         {label}
       </span>
-      <span className='text-monte text-[70%] text-accent-foreground'>
+      <span className='text-monte text-lg short:text-[90%] text-accent-foreground'>
         {names}
       </span>
     </div>
@@ -74,7 +74,7 @@ export function DetailsSection() {
           alt=''
           width={484}
           height={516}
-          className='h-[clamp(2rem,10dvmin,4rem)] w-auto object-contain'
+          className='h-[clamp(2rem,10dvmin,4rem)] big:h-18 w-auto object-contain'
         />
         <h2 className='text-mynerve text-center text-fluid-3xl text-accent-foreground'>
           Λεπτομέρειες
@@ -82,12 +82,12 @@ export function DetailsSection() {
       </div>
 
       <div className='flex w-full flex-1 flex-col items-center justify-center-safe overflow-y-auto gap-[clamp(0.375rem,1.6dvmin,0.75rem)] px-[clamp(1rem,6dvmin,2rem)] py-[clamp(0.25rem,2dvmin,1rem)] text-center'>
-        <p className='text-cave text-fluid-base -mt-1.5 text-accent-foreground leading-snug'>
+        <p className='text-cave text-lg big:text-xl big:leading-6 big:-mt-10  -mt-1.5 text-accent-foreground leading-snug'>
           Με χαρά σας προσκαλούμε <br />
           στη βάπτιση του γιου μας
         </p>
 
-        <h3 className='text-brittany text-[120%] mt-[clamp(0.25rem,1dvmin,0.5rem)] text-accent-foreground'>
+        <h3 className='text-brittany text-[120%] big:pb-4 big:mt-6 big:text-4xl mt-[clamp(0.25rem,1dvmin,0.5rem)] text-accent-foreground'>
           George
         </h3>
 
@@ -113,7 +113,7 @@ export function DetailsSection() {
           ΣΑΒΒΑΤΟ
         </span>
 
-        <p className='max-w-[85%] text-monte text-[80%] mt-[clamp(0.25rem,1dvmin,0.5rem)] leading-relaxed text-accent-foreground'>
+        <p className='max-w-[85%] big:mt-6 text-monte text-[80%] mt-[clamp(0.25rem,1dvmin,0.5rem)] leading-relaxed text-accent-foreground'>
           Ετοιμαστείτε για μια γλυκιά περιπέτεια! Θα έχει ψωμάκια, χαμόγελα και
           πολύ αγάπη! Σας περιμένουμε να φουρνίσουμε μαζί τις πιο όμορφες
           αναμνήσεις!

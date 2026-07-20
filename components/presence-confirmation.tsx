@@ -257,9 +257,9 @@ export function PresenceConfirmation() {
       <div
         ref={imageRef}
         className='relative z-10 mt-auto w-full'>
-        <div className='aspect-205/90 w-full -mb-10 overflow-hidden'>
+        <div className='aspect-200/100 w-full -mb-10 overflow-hidden'>
           <Image
-            src='/bye.png'
+            src='/bye2.png'
             alt=''
             width={666}
             height={375}

@@ -3,7 +3,7 @@ import BackgroundVideo from "next-video/background-video";
 import { Heart } from "lucide-react";
 import { IntroEnvelope } from "@/components/intro-envelope";
 import { FlipCountdown } from "@/components/flip-countdown";
-import { WoodRollHero } from "@/components/wood-roll-hero";
+import { WoodWipeSection } from "@/components/wood-wipe-section";
 import { DetailsSection } from "@/components/details-section";
 import { ProgrammSection } from "@/components/programm-section";
 import { LocationSection } from "@/components/location-section";
@@ -142,12 +142,18 @@ export default function Home() {
   return (
     <IntroEnvelope>
       <div className='flex w-full flex-col items-center bg-accent'>
-        <WoodRollHero
-          hero={<HeroSection />}
-          next={<DetailsSection />}
-        />
-        <ProgrammSection />
-        <LocationSection />
+        <WoodWipeSection zIndex={50}>
+          <HeroSection />
+        </WoodWipeSection>
+        <WoodWipeSection zIndex={40}>
+          <DetailsSection />
+        </WoodWipeSection>
+        <WoodWipeSection zIndex={30}>
+          <ProgrammSection />
+        </WoodWipeSection>
+        <WoodWipeSection zIndex={20}>
+          <LocationSection />
+        </WoodWipeSection>
         <PresenceConfirmation />
       </div>
     </IntroEnvelope>
