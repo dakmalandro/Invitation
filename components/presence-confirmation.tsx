@@ -1,12 +1,14 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Form from "next/form";
 import { ChefHat, Heart, Minus, Plus } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import confetti from "canvas-confetti";
 import { submitPresenceConfirmation } from "@/app/actions";
+import { initialPresenceConfirmationState } from "@/lib/presence-confirmation-state";
 
 const fieldLabelClass =
   "text-monte text-fluid-2xs tracking-widest text-accent-foreground/70";
@@ -18,11 +20,13 @@ function TextField({
   name,
   placeholder,
   required,
+  type = "text",
 }: {
   label: string;
   name: string;
   placeholder: string;
   required?: boolean;
+  type?: "text" | "email";
 }) {
   return (
     <label
@@ -30,7 +34,7 @@ function TextField({
       className='flex w-full flex-col gap-1.5 text-left'>
       <span className={fieldLabelClass}>{label}</span>
       <input
-        type='text'
+        type={type}
         name={name}
         placeholder={placeholder}
         required={required}
@@ -126,6 +130,33 @@ export function PresenceConfirmation() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
+  const [state, formAction, pending] = useActionState(
+    submitPresenceConfirmation,
+    initialPresenceConfirmationState,
+  );
+
+  useEffect(() => {
+    if (state.status !== "success" || !state.submittedAt) return;
+
+    const origins = [
+      { x: 0.2, y: 0.7 },
+      { x: 0.5, y: 0.6 },
+      { x: 0.8, y: 0.7 },
+    ];
+
+    origins.forEach((origin, i) => {
+      window.setTimeout(() => {
+        confetti({
+          particleCount: 90,
+          spread: 75,
+          startVelocity: 35,
+          origin,
+          colors: ["#a37b4c", "#cdb99f", "#ede1cf", "#4a3f33"],
+        });
+      }, i * 150);
+    });
+  }, [state.submittedAt, state.status]);
+
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -202,7 +233,7 @@ export function PresenceConfirmation() {
       </div>
 
       <Form
-        action={submitPresenceConfirmation}
+        action={formAction}
         className='flex w-full min-h-0 flex-1 flex-col items-center gap-[clamp(0.75rem,3dvmin,1.25rem)] overflow-y-auto px-[clamp(1.5rem,8dvmin,2.5rem)] py-[clamp(0.5rem,2dvmin,1rem)]'>
         <TextField
           label='ΟΝΟΜΑΤΕΠΩΝΥΜΟ *'
@@ -227,31 +258,34 @@ export function PresenceConfirmation() {
           min={0}
         />
 
-        {/* <TextField
-          label='ΔΙΑΤΡΟΦΙΚΕΣ ΠΡΟΤΙΜΗΣΕΙΣ'
-          name='dietary'
-          placeholder='π.χ. Χωρίς γλουτένη, Χορτοφαγικό κτλ.'
-        /> */}
-
-        <label
-          data-form-field
-          className='flex w-full flex-col gap-1.5 text-left short:hidden'>
-          <span className={fieldLabelClass}>ΜΗΝΥΜΑ ΓΙΑ ΕΜΑΣ</span>
-          <textarea
-            name='message'
-            placeholder='Γράψτε μας λίγες ευχές...'
-            rows={3}
-            className={`${fieldControlClass} resize-none`}
-          />
-        </label>
+        <TextField
+          label='EMAIL *'
+          name='email'
+          type='email'
+          placeholder='π.χ. maria@example.com'
+          required
+        />
 
         <button
           ref={buttonRef}
           type='submit'
-          className='mt-[clamp(0.25rem,1dvmin,0.5rem)] flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-fluid-sm text-monte tracking-widest text-primary-foreground shadow-md transition-colors hover:bg-primary/90'>
-          ΑΠΟΣΤΟΛΗ
+          disabled={pending}
+          className='mt-[clamp(0.25rem,1dvmin,0.5rem)] flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-fluid-sm text-monte tracking-widest text-primary-foreground shadow-md transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70'>
+          {pending ? "ΑΠΟΣΤΟΛΗ..." : "ΑΠΟΣΤΟΛΗ"}
           <Heart className='h-4 w-4 shrink-0 fill-primary-foreground' />
         </button>
+
+        {state.status === "error" && (
+          <p className='text-monte text-fluid-2xs text-destructive text-center'>
+            {state.message}
+          </p>
+        )}
+
+        {state.status === "success" && (
+          <p className='text-monte text-fluid-2xs text-accent-foreground text-center'>
+            Ευχαριστούμε! Η παρουσία σας επιβεβαιώθηκε.
+          </p>
+        )}
       </Form>
 
       <div
