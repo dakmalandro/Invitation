@@ -7,9 +7,9 @@ import {
 
 const EVENT: CalendarEvent = {
   title: "George Baptism Day ❤️",
-  // 12/09/2026, 18:00–21:00 Athens time (EEST, UTC+3) → 15:00–18:00 UTC
-  start: new Date("2026-09-12T15:00:00Z"),
-  end: new Date("2026-09-12T18:00:00Z"),
+  // 12/09/2026, 16:00–18:30 Athens time (EEST, UTC+3) → 13:00–15:30 UTC
+  start: new Date("2026-09-12T13:00:00Z"),
+  end: new Date("2026-09-12T15:30:00Z"),
   locationUrl: "https://maps.app.goo.gl/oSWt7UYK8dCXf7Tn8",
   // TODO: swap for the real domain once the invitation is deployed
   invitationUrl: "https://georgearabas.org",
