@@ -285,7 +285,7 @@ export function PresenceConfirmation() {
           <StepperField
             label='ΑΡΙΘΜΟΣ ΕΝΗΛΙΚΩΝ *'
             name='adults'
-            defaultValue={2}
+            defaultValue={0}
             min={0}
             disabled={attending === "no"}
           />
@@ -293,7 +293,7 @@ export function PresenceConfirmation() {
           <StepperField
             label='ΑΡΙΘΜΟΣ ΠΑΙΔΙΩΝ'
             name='children'
-            defaultValue={1}
+            defaultValue={0}
             min={0}
             disabled={attending === "no"}
           />

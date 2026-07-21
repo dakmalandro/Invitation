@@ -115,7 +115,7 @@ export function DetailsSection() {
 
         <p className='max-w-[85%] big:mt-1 text-monte text-[75%] big:text-[16px] mt-[clamp(0.25rem,1dvmin,0.5rem)] leading-relaxed text-accent-foreground'>
           Ετοιμαστείτε για μια γλυκιά περιπέτεια! Θα έχει ψωμάκια, χαμόγελα και
-          πολύ αγάπη! Σας περιμένουμε να φουρνίσουμε μαζί τις πιο όμορφες
+          πολλή αγάπη! Σας περιμένουμε να φουρνίσουμε μαζί τις πιο όμορφες
           αναμνήσεις!
         </p>
       </div>
