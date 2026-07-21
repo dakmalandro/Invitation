@@ -248,7 +248,7 @@ export function PresenceConfirmation() {
     <>
       <section
         ref={sectionRef}
-        className='relative flex h-dvh w-full max-w-md flex-col items-center overflow-hidden bg-background'>
+        className='relative flex h-lvh w-full max-w-md flex-col items-center overflow-hidden bg-background'>
         <div
           ref={headerRef}
           className='flex flex-col items-center gap-1.5 px-[clamp(1.5rem,8dvmin,2.5rem)] pt-[clamp(0.75rem,4dvmin,2rem)] text-center'>

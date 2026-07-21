@@ -131,7 +131,7 @@ export function ProgrammSection() {
   return (
     <section
       ref={sectionRef}
-      className='relative flex h-dvh w-full max-w-md flex-col items-center overflow-hidden bg-accent/60'>
+      className='relative flex h-lvh w-full max-w-md flex-col items-center overflow-hidden bg-accent/60'>
       <div
         ref={plantRef}
         className='pointer-events-none absolute -right-7 top-1/2 z-0 h-2/3 w-1/3 -translate-y-1/2'>

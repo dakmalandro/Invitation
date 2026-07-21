@@ -89,7 +89,7 @@ export function LocationSection() {
   return (
     <section
       ref={sectionRef}
-      className='relative flex h-dvh w-full max-w-md flex-col items-center overflow-hidden bg-background'>
+      className='relative flex h-lvh w-full max-w-md flex-col items-center overflow-hidden bg-background'>
       <div
         ref={headerRef}
         className='flex flex-col items-center gap-0.5 pt-[clamp(0.75rem,4dvmin,2rem)]'>

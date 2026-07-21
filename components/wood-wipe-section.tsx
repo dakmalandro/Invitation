@@ -85,11 +85,13 @@ export function WoodWipeSection({
     <div
       ref={sectionRef}
       style={{ zIndex }}
-      // the extra buffer keeps the section's own opaque backing tall enough
-      // to stay behind the browser's translucent address bar, which floats
-      // over a sliver of the page below the dvh-measured edge — without it,
-      // whatever section sits document-adjacent shows through that sliver
-      className='pointer-events-none relative h-[calc(100dvh+6rem)] w-full max-w-md overflow-hidden'>
+      // lvh (large viewport height) always matches the screen size with the
+      // browser's toolbars fully retracted, so the section's own opaque
+      // backing stays tall enough to sit behind the translucent address bar
+      // no matter its current state — dvh instead shrinks to the visible
+      // area and leaves whatever section sits document-adjacent showing
+      // through that sliver
+      className='pointer-events-none relative h-lvh w-full max-w-md overflow-hidden'>
       <div
         ref={contentRef}
         className='pointer-events-auto absolute inset-0'>

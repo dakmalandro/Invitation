@@ -12,7 +12,7 @@ import hello3 from "@videos/hello3.mp4";
 
 function HeroSection() {
   return (
-    <section className='relative flex h-dvh w-full max-w-md flex-col items-center bg-background'>
+    <section className='relative flex h-lvh w-full max-w-md flex-col items-center bg-background'>
       <h1 className='text-brittany pt-8 text-center text-4xl text-accent-foreground sm:text-5xl'>
         Baptism Day
       </h1>

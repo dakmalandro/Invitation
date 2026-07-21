@@ -67,7 +67,7 @@ function DateTag() {
 
 export function DetailsSection() {
   return (
-    <section className='relative flex h-dvh w-full max-w-md flex-col items-center overflow-x-hidden bg-background'>
+    <section className='relative flex h-lvh w-full max-w-md flex-col items-center overflow-x-hidden bg-background'>
       <div className='flex flex-col items-center gap-0.5 pt-[clamp(0.75rem,4dvmin,2rem)]'>
         <Image
           src='/heart484x516.png'
