@@ -129,7 +129,7 @@ ${closingLine}
 
 Με αγάπη,
 George ${signatureEmoji}
-& οι γονείς του
+& οι γονείς μου
 Δάκης & Γεωργία`;
 
   return { subject, html, text };
