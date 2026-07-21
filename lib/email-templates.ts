@@ -135,7 +135,9 @@ George ${signatureEmoji}
   return { subject, html, text };
 }
 
-export function guestConfirmationEmail({ fullName }: Pick<GuestData, "fullName">) {
+export function guestConfirmationEmail({
+  fullName,
+}: Pick<GuestData, "fullName">) {
   return buildGuestEmail({
     fullName,
     subject: "Ευχαριστούμε για την επιβεβαίωση παρουσίας! 🤍",
@@ -158,7 +160,7 @@ export function guestRegretEmail({ fullName }: Pick<GuestData, "fullName">) {
       "Σας ευχαριστούμε που μας ενημερώσατε και για τις όμορφες ευχές σας. Η αγάπη σας είναι πάντα το πιο πολύτιμο συστατικό της ημέρας μας.",
       "Ευχόμαστε να ανταμώσουμε πολύ σύντομα, σε μια άλλη όμορφη περίσταση.",
     ],
-    closingLine: "Σας ευχαριστούμε ΑΠΟ ΚΑΡΔΙΑΣ!",
+    closingLine: "",
     signatureEmoji: "🥄",
   });
 }
