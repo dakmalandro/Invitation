@@ -44,8 +44,13 @@ function TextField({
   );
 }
 
-function AttendanceField() {
-  const [attending, setAttending] = useState<"yes" | "no">("yes");
+function AttendanceField({
+  attending,
+  onChange,
+}: {
+  attending: "yes" | "no";
+  onChange: (value: "yes" | "no") => void;
+}) {
   const options: { value: "yes" | "no"; label: string }[] = [
     { value: "yes", label: "Ναι, με χαρά!" },
     { value: "no", label: "Δυστυχώς, δεν μπορώ" },
@@ -66,7 +71,7 @@ function AttendanceField() {
               name='attending'
               value={option.value}
               checked={attending === option.value}
-              onChange={() => setAttending(option.value)}
+              onChange={() => onChange(option.value)}
               required
               className='h-4 w-4 accent-primary'
             />
@@ -83,11 +88,13 @@ function StepperField({
   name,
   defaultValue,
   min = 0,
+  disabled = false,
 }: {
   label: string;
   name: string;
   defaultValue: number;
   min?: number;
+  disabled?: boolean;
 }) {
   const [value, setValue] = useState(defaultValue);
 
@@ -96,12 +103,16 @@ function StepperField({
       data-form-field
       className='flex w-full flex-col gap-1.5 text-left'>
       <span className={fieldLabelClass}>{label}</span>
-      <div className='flex items-center overflow-hidden rounded-lg border border-input bg-card'>
+      <div
+        className={`flex items-center overflow-hidden rounded-lg border border-input bg-card transition-opacity ${
+          disabled ? "opacity-50" : ""
+        }`}>
         <button
           type='button'
+          disabled={disabled}
           onClick={() => setValue((v) => Math.max(min, v - 1))}
           aria-label={`Μείωση - ${label}`}
-          className='flex h-10 w-10 shrink-0 items-center justify-center text-accent-foreground transition-colors hover:bg-accent/40'>
+          className='flex h-10 w-10 shrink-0 items-center justify-center text-accent-foreground transition-colors hover:bg-accent/40 disabled:cursor-not-allowed disabled:hover:bg-transparent'>
           <Minus className='h-4 w-4' />
         </button>
         <span className='flex-1 text-center text-monte text-fluid-base text-accent-foreground'>
@@ -109,9 +120,10 @@ function StepperField({
         </span>
         <button
           type='button'
+          disabled={disabled}
           onClick={() => setValue((v) => v + 1)}
           aria-label={`Αύξηση - ${label}`}
-          className='flex h-10 w-10 shrink-0 items-center justify-center text-accent-foreground transition-colors hover:bg-accent/40'>
+          className='flex h-10 w-10 shrink-0 items-center justify-center text-accent-foreground transition-colors hover:bg-accent/40 disabled:cursor-not-allowed disabled:hover:bg-transparent'>
           <Plus className='h-4 w-4' />
         </button>
         <input
@@ -130,6 +142,9 @@ export function PresenceConfirmation() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
+  const [attending, setAttending] = useState<"yes" | "no">("yes");
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
   const [state, formAction, pending] = useActionState(
     submitPresenceConfirmation,
     initialPresenceConfirmationState,
@@ -137,6 +152,8 @@ export function PresenceConfirmation() {
 
   useEffect(() => {
     if (state.status !== "success" || !state.submittedAt) return;
+
+    setShowConfirmation(true);
 
     const origins = [
       { x: 0.2, y: 0.7 },
@@ -156,6 +173,11 @@ export function PresenceConfirmation() {
       }, i * 150);
     });
   }, [state.submittedAt, state.status]);
+
+  const handleConfirmationClose = () => {
+    setShowConfirmation(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -217,6 +239,7 @@ export function PresenceConfirmation() {
   }, []);
 
   return (
+    <>
     <section
       ref={sectionRef}
       className='relative flex h-dvh w-full max-w-md flex-col items-center overflow-hidden bg-background'>
@@ -242,13 +265,17 @@ export function PresenceConfirmation() {
           required
         />
 
-        <AttendanceField />
+        <AttendanceField
+          attending={attending}
+          onChange={setAttending}
+        />
 
         <StepperField
           label='ΑΡΙΘΜΟΣ ΕΝΗΛΙΚΩΝ *'
           name='adults'
           defaultValue={2}
           min={0}
+          disabled={attending === "no"}
         />
 
         <StepperField
@@ -256,6 +283,7 @@ export function PresenceConfirmation() {
           name='children'
           defaultValue={1}
           min={0}
+          disabled={attending === "no"}
         />
 
         <TextField
@@ -280,12 +308,6 @@ export function PresenceConfirmation() {
             {state.message}
           </p>
         )}
-
-        {state.status === "success" && (
-          <p className='text-monte text-fluid-2xs text-accent-foreground text-center'>
-            Ευχαριστούμε! Η παρουσία σας επιβεβαιώθηκε.
-          </p>
-        )}
       </Form>
 
       <div
@@ -303,5 +325,26 @@ export function PresenceConfirmation() {
         </div>
       </div>
     </section>
+
+    {showConfirmation && (
+      <div className='fixed inset-0 z-100 flex items-center justify-center bg-accent-foreground/40 px-6 backdrop-blur-sm'>
+        <div className='flex w-full max-w-sm flex-col items-center gap-3 rounded-2xl bg-card px-6 py-8 text-center shadow-xl'>
+          <Heart className='h-8 w-8 shrink-0 fill-primary text-primary' />
+          <h3 className='text-mynerve text-fluid-2xl text-accent-foreground'>
+            Ευχαριστούμε για την ενημέρωση!
+          </h3>
+          <p className='text-monte text-fluid-sm leading-relaxed text-accent-foreground/70'>
+            Η απάντησή σας καταγράφηκε με επιτυχία.
+          </p>
+          <button
+            type='button'
+            onClick={handleConfirmationClose}
+            className='mt-2 rounded-full bg-primary px-10 py-2.5 text-fluid-sm text-monte tracking-widest text-primary-foreground shadow-md transition-colors hover:bg-primary/90'>
+            OK
+          </button>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
