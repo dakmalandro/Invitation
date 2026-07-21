@@ -1,10 +1,11 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollDownIndicator } from "@/components/scroll-down-indicator";
+import { ScrollIdleHint } from "@/components/scroll-idle-hint";
 
 export function WoodWipeSection({
   children,
@@ -16,13 +17,14 @@ export function WoodWipeSection({
   zIndex: number;
   /** portion of the pin (0-1) the section spends fully static before the wipe runs */
   holdFraction?: number;
-  /** show the "SCROLL DOWN" text badge above the chevrons, not just the arrows */
+  /** hero mode: shows the small bottom-pill scroll hint instead of the idle popup */
   showScrollLabel?: boolean;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const rollerRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
+  const [isPinActive, setIsPinActive] = useState(false);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -67,6 +69,7 @@ export function WoodWipeSection({
           // in place underneath, so nothing but the wood pin ever moves
           pin: true,
           pinSpacing: false,
+          onToggle: (self) => setIsPinActive(self.isActive),
         },
       });
 
@@ -104,8 +107,13 @@ export function WoodWipeSection({
             tint the page behind it, not the section stacked underneath here */}
         <div className='absolute inset-0 -z-10 bg-accent' />
         {children}
-        <ScrollDownIndicator showLabel={showScrollLabel} />
+        {/* hero keeps the bottom pill; the other sections rely on the idle
+            "keep scrolling" popup instead, so the bottom pill would be
+            redundant there */}
+        {showScrollLabel && <ScrollDownIndicator />}
       </div>
+
+      {!showScrollLabel && <ScrollIdleHint active={isPinActive} />}
 
       <div
         ref={rollerRef}
