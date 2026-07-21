@@ -120,16 +120,16 @@ export function DetailsSection() {
         </p>
       </div>
 
-      <div className='w-full'>
+      <div className='w-full '>
         <ScallopedDivider />
-        <div className='flex flex-col items-center gap-[clamp(0.375rem,1.6dvmin,0.75rem)] bg-accent/60 pt-[clamp(0.5rem,3dvmin,1.5rem)] pb-[clamp(0.5rem,3dvmin,1.5rem)]'>
-          <h3 className='text-brittany text-2xl mb-1 text-accent-foreground'>
+        <div className='flex flex-col items-center gap-[clamp(0.375rem,1.6dvmin,0.75rem)] bg-accent/60 py-6'>
+          <AddToCalendar event={EVENT} />
+          <h3 className='text-brittany text-2xl mt-2 text-accent-foreground'>
             Save the Date
           </h3>
-          <p className='text-monte text-xs tracking-widest text-accent-foreground/70'>
+          {/* <p className='text-monte text-xs tracking-widest text-accent-foreground/70'>
             ΜΗΝ ΤΟ ΧΑΣΕΤΕ!
-          </p>
-          <AddToCalendar event={EVENT} />
+          </p> */}
         </div>
       </div>
     </section>
