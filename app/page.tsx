@@ -142,7 +142,9 @@ export default function Home() {
   return (
     <IntroEnvelope>
       <div className='flex w-full flex-col items-center bg-accent'>
-        <WoodWipeSection zIndex={50}>
+        <WoodWipeSection
+          zIndex={50}
+          showScrollLabel>
           <HeroSection />
         </WoodWipeSection>
         <WoodWipeSection zIndex={40}>

@@ -4,16 +4,20 @@ import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollDownIndicator } from "@/components/scroll-down-indicator";
 
 export function WoodWipeSection({
   children,
   zIndex,
   holdFraction = 0.4,
+  showScrollLabel = false,
 }: {
   children: React.ReactNode;
   zIndex: number;
   /** portion of the pin (0-1) the section spends fully static before the wipe runs */
   holdFraction?: number;
+  /** show the "SCROLL DOWN" text badge above the chevrons, not just the arrows */
+  showScrollLabel?: boolean;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -100,6 +104,7 @@ export function WoodWipeSection({
             tint the page behind it, not the section stacked underneath here */}
         <div className='absolute inset-0 -z-10 bg-accent' />
         {children}
+        <ScrollDownIndicator showLabel={showScrollLabel} />
       </div>
 
       <div
