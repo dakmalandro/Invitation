@@ -264,7 +264,7 @@ export function PresenceConfirmation() {
 
         <Form
           action={formAction}
-          className='flex w-full min-h-0 flex-1 flex-col mt-6 items-center short:gap-4 gap-8 overflow-y-auto px-[clamp(1.5rem,8dvmin,2.5rem)] py-[clamp(0.5rem,2dvmin,1rem)]'>
+          className='flex w-full min-h-0 flex-1 flex-col mt-6 short:mt-1 items-center short:gap-4 gap-8 overflow-y-auto px-[clamp(1.5rem,8dvmin,2.5rem)] py-[clamp(0.5rem,2dvmin,1rem)]'>
           <TextField
             label='ΟΝΟΜΑΤΕΠΩΝΥΜΟ *'
             name='fullName'
@@ -309,6 +309,10 @@ export function PresenceConfirmation() {
             {pending ? "ΑΠΟΣΤΟΛΗ..." : "ΑΠΟΣΤΟΛΗ"}
             <Heart className='h-4 w-4 shrink-0 fill-primary-foreground' />
           </button>
+          <p className='text-monte text-center short:-mt-2 text-fluid-sm leading-relaxed text-accent-foreground/70'>
+            Τηλέφωνα επικοινωνίας <br />
+            6985952270 (Γεωργία) ή 6940795566
+          </p>
 
           {state.status === "error" && (
             <p className='text-monte text-fluid-2xs text-destructive text-center'>
