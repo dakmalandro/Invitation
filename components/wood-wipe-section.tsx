@@ -22,6 +22,11 @@ export function WoodWipeSection({
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    // mobile browsers resize the viewport as the address bar hides/shows
+    // while scrolling; letting that trigger a recalculation desyncs the
+    // pin timing from the dvh-based section heights and makes the next
+    // section peek through mid-wipe.
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     const ctx = gsap.context(() => {
       const progress = { value: 0 };
@@ -80,10 +85,10 @@ export function WoodWipeSection({
     <div
       ref={sectionRef}
       style={{ zIndex }}
-      className='relative h-dvh w-full max-w-md overflow-hidden'>
+      className='pointer-events-none relative h-dvh w-full max-w-md overflow-hidden'>
       <div
         ref={contentRef}
-        className='absolute inset-0'>
+        className='pointer-events-auto absolute inset-0'>
         {/* opaque backing, clipped together with children — some sections
             use a translucent background (e.g. bg-accent/60) that's meant to
             tint the page behind it, not the section stacked underneath here */}

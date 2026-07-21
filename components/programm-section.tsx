@@ -198,7 +198,7 @@ export function ProgrammSection() {
         className='relative z-10 mt-auto w-full'>
         <div className='aspect-90/40 w-full -mt-24 overflow-hidden'>
           <Image
-            src='/babyNew.png'
+            src='/babyNew4.png'
             alt=''
             width={3448}
             height={558}
