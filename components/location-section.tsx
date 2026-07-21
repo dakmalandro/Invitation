@@ -108,14 +108,15 @@ export function LocationSection() {
       <div className='flex w-full flex-1 flex-col items-center justify-center-safe gap-[clamp(0.5rem,2dvmin,1rem)] overflow-y-auto px-[clamp(1.5rem,8dvmin,2.5rem)] py-[clamp(0.25rem,2dvmin,1rem)] text-center'>
         <p
           data-location-info
-          className='text-monte text-fluid-base leading-relaxed text-accent-foreground'>
-          Η βάπτιση θα τελεστεί σε έναν όμορφο Ιερό Ναό, γεμάτο πίστη και αγάπη!
+          className='text-monte text-fluid-base mb-4 leading-relaxed text-accent-foreground'>
+          Η βάπτιση θα τελεστεί στον Ιερό Ναό όπου θα μοιραστούμε μαζί μια
+          ξεχωριστή και ευλογημένη στιγμή.
         </p>
 
         <div
           data-location-info
           className='flex flex-col items-center gap-0.5'>
-          <span className='text-monte text-fluid-base font-semibold text-accent-foreground'>
+          <span className='text-monte text-fluid-base font-semibold mb-2 text-accent-foreground'>
             Τοποθεσία
           </span>
           <span className='text-monte text-fluid-2xl short:text-[16px] text-accent-foreground'>

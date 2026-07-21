@@ -85,7 +85,11 @@ export function WoodWipeSection({
     <div
       ref={sectionRef}
       style={{ zIndex }}
-      className='pointer-events-none relative h-dvh w-full max-w-md overflow-hidden'>
+      // the extra buffer keeps the section's own opaque backing tall enough
+      // to stay behind the browser's translucent address bar, which floats
+      // over a sliver of the page below the dvh-measured edge — without it,
+      // whatever section sits document-adjacent shows through that sliver
+      className='pointer-events-none relative h-[calc(100dvh+6rem)] w-full max-w-md overflow-hidden'>
       <div
         ref={contentRef}
         className='pointer-events-auto absolute inset-0'>

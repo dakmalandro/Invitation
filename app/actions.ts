@@ -9,6 +9,7 @@ import {
 } from "@/lib/mailtrap";
 import {
   guestConfirmationEmail,
+  guestRegretEmail,
   hostNotificationEmail,
   type GuestData,
 } from "@/lib/email-templates";
@@ -21,7 +22,9 @@ async function sendConfirmationEmails(guest: GuestData) {
     return;
   }
 
-  const guestEmail = guestConfirmationEmail(guest);
+  const guestEmail = guest.attending
+    ? guestConfirmationEmail(guest)
+    : guestRegretEmail(guest);
   const hostEmail = hostNotificationEmail(guest);
 
   await Promise.all([

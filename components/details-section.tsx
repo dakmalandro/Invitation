@@ -12,7 +12,7 @@ const EVENT: CalendarEvent = {
   end: new Date("2026-09-12T18:00:00Z"),
   locationUrl: "https://maps.app.goo.gl/oSWt7UYK8dCXf7Tn8",
   // TODO: swap for the real domain once the invitation is deployed
-  invitationUrl: "https://example.com",
+  invitationUrl: "https://georgearabas.org",
 };
 
 function ScallopedDivider() {
@@ -46,7 +46,7 @@ function PeopleRow({ label, names }: { label: string; names: string }) {
       <span className='text-mynerve  text-sm short:text-[80%] tracking-widest text-accent-foreground/70'>
         {label}
       </span>
-      <span className='text-monte text-lg short:text-[90%] text-accent-foreground'>
+      <span className='text-monte text-md short:text-[75%] text-accent-foreground'>
         {names}
       </span>
     </div>
@@ -82,12 +82,12 @@ export function DetailsSection() {
       </div>
 
       <div className='flex w-full flex-1 flex-col items-center justify-center-safe overflow-y-auto gap-[clamp(0.375rem,1.6dvmin,0.75rem)] px-[clamp(1rem,6dvmin,2rem)] py-[clamp(0.25rem,2dvmin,1rem)] text-center'>
-        <p className='text-cave text-lg big:text-xl big:leading-6 big:-mt-10  -mt-1.5 text-accent-foreground leading-snug'>
+        <p className='text-cave text-lg big:text-2xl big:leading-6 big:-mt-10  -mt-1.5 text-accent-foreground leading-snug'>
           Με χαρά σας προσκαλούμε <br />
           στη βάπτιση του γιου μας
         </p>
 
-        <h3 className='text-brittany text-[120%] big:pb-4 big:mt-6 big:text-4xl mt-[clamp(0.25rem,1dvmin,0.5rem)] text-accent-foreground'>
+        <h3 className='text-brittany text-[120%] big:pb-4 big:mt-2 big:text-4xl mt-[clamp(0.25rem,1dvmin,0.5rem)] text-accent-foreground'>
           George
         </h3>
 
@@ -95,25 +95,25 @@ export function DetailsSection() {
 
         <PeopleRow
           label='ΓΟΝΕΙΣ'
-          names='Μαυρουδής & Γεωργία'
+          names='Μαυρουδής Αραμπατζής & Γεωργία Κουσαρίδου'
         />
         <PeopleRow
           label='ΑΔΕΛΦΙΑ'
-          names='Σμαράγδα'
+          names='Σμαράγδα Αραμπατζή'
         />
         <PeopleRow
           label='ΝΟΝΑ'
-          names='Φιλιώ'
+          names='Τριανταφυλλιά Ζαχαριάδου'
         />
 
         <div className='mt-[clamp(0.5rem,2dvmin,1rem)]'>
           <DateTag />
         </div>
         <span className='text-monte text-fluid-base tracking-widest mt-[clamp(0.25rem,1dvmin,0.5rem)] text-accent-foreground/70'>
-          ΣΑΒΒΑΤΟ
+          ΣΑΒΒΑΤΟ - 04:00 μ.μ.
         </span>
 
-        <p className='max-w-[85%] big:mt-6 text-monte text-[80%] mt-[clamp(0.25rem,1dvmin,0.5rem)] leading-relaxed text-accent-foreground'>
+        <p className='max-w-[85%] big:mt-1 text-monte text-[75%] big:text-[16px] mt-[clamp(0.25rem,1dvmin,0.5rem)] leading-relaxed text-accent-foreground'>
           Ετοιμαστείτε για μια γλυκιά περιπέτεια! Θα έχει ψωμάκια, χαμόγελα και
           πολύ αγάπη! Σας περιμένουμε να φουρνίσουμε μαζί τις πιο όμορφες
           αναμνήσεις!

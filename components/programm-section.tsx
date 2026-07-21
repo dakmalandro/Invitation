@@ -158,12 +158,12 @@ export function ProgrammSection() {
         </h2>
       </div>
 
-      <div className='relative z-10 grid w-full flex-1 grid-cols-[clamp(2.75rem,7.5dvmin,3.5rem)_clamp(2.25rem,7.5dvmin,2.75rem)_1fr] content-center items-stretch gap-x-[clamp(0.5rem,2dvmin,0.875rem)] overflow-y-auto px-[clamp(1rem,6dvmin,2rem)] pt-[clamp(0.5rem,2dvmin,1rem)] pb-[clamp(2.75rem,9dvh,3.75rem)]'>
+      <div className='relative big:-mt-36 z-10 grid w-full flex-1 grid-cols-[clamp(2.75rem,7.5dvmin,3.5rem)_clamp(2.25rem,7.5dvmin,2.75rem)_1fr] content-center items-stretch gap-4 overflow-y-auto px-[clamp(1rem,6dvmin,2rem)] pt-[clamp(0.5rem,2dvmin,1rem)] pb-[clamp(2.75rem,9dvh,3.75rem)]'>
         <ProgramRow
           time='16:00'
           icon={<Church />}
           title='Τελετή'
-          subtitle='Ιερός Ναός Αγίου Δημητρίου'
+          subtitle='Ιερός Ναός Κωνσταντίνου & Ελένης'
         />
         <ProgramRow
           time='17:00'
@@ -184,7 +184,7 @@ export function ProgrammSection() {
         <ProgramRow
           time='18:30'
           icon={<Citrus />}
-          title='Γωνία Λεμονάδας'
+          title='Γωνιά Λεμονάδας'
         />
         <ProgramRow
           icon={<Heart className='fill-primary' />}

@@ -26,9 +26,20 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
-export function guestConfirmationEmail({ fullName }: Pick<GuestData, "fullName">) {
+function buildGuestEmail({
+  fullName,
+  subject,
+  paragraphs,
+  closingLine,
+  signatureEmoji,
+}: {
+  fullName: string;
+  subject: string;
+  paragraphs: string[];
+  closingLine: string;
+  signatureEmoji: string;
+}) {
   const name = escapeHtml(fullName);
-  const subject = "Ευχαριστούμε για την επιβεβαίωση παρουσίας! 🤍";
 
   const html = `<!doctype html>
 <html lang="el">
@@ -57,20 +68,18 @@ export function guestConfirmationEmail({ fullName }: Pick<GuestData, "fullName">
                 <span style="font-size:14px;color:${COLORS.accent};">♡</span>
               </td>
             </tr>
-            <tr>
+            ${paragraphs
+              .map(
+                (paragraph) => `<tr>
               <td style="padding:16px 40px 0;text-align:center;font-size:14px;line-height:1.7;color:${COLORS.text};">
-                Η παρουσία σας στη βάπτιση του μικρού μας είναι το πιο όμορφο δώρο που θα μπορούσαμε να ζητήσουμε.
+                ${paragraph}
               </td>
-            </tr>
-            <tr>
-              <td style="padding:16px 40px 0;text-align:center;font-size:14px;line-height:1.7;color:${COLORS.text};">
-                Μας γεμίσατε χαμόγελα, αγάπη και υπέροχες αναμνήσεις που θα κρατήσουμε για πάντα στην καρδιά μας.
-              </td>
-            </tr>
+            </tr>`,
+              )
+              .join("")}
             <tr>
               <td style="padding:28px 32px 0;text-align:center;">
-                <div style="font-family:'Brush Script MT','Segoe Script',cursive;font-size:26px;color:${COLORS.accent};">Σας ευχαριστούμε</div>
-                <div style="font-size:12px;letter-spacing:0.2em;color:${COLORS.text};margin-top:4px;">ΑΠΟ ΚΑΡΔΙΑΣ!</div>
+                <div style="font-family:'Brush Script MT','Segoe Script',cursive;font-size:26px;color:${COLORS.accent};">${closingLine}</div>
               </td>
             </tr>
             <tr>
@@ -86,7 +95,7 @@ export function guestConfirmationEmail({ fullName }: Pick<GuestData, "fullName">
             <tr>
               <td style="padding:2px 32px 0;text-align:center;">
                 <span style="font-family:'Brush Script MT','Segoe Script',cursive;font-size:30px;color:${COLORS.text};">George</span>
-                <span style="font-size:20px;">🥄</span>
+                <span style="font-size:20px;">${signatureEmoji}</span>
               </td>
             </tr>
             <tr>
@@ -114,17 +123,44 @@ export function guestConfirmationEmail({ fullName }: Pick<GuestData, "fullName">
 
   const text = `Ευχαριστούμε, ${fullName}!
 
-Η παρουσία σας στη βάπτιση του μικρού μας είναι το πιο όμορφο δώρο που θα μπορούσαμε να ζητήσουμε.
-Μας γεμίσατε χαμόγελα, αγάπη και υπέροχες αναμνήσεις που θα κρατήσουμε για πάντα στην καρδιά μας.
+${paragraphs.join("\n")}
 
-Σας ευχαριστούμε από καρδιάς!
+${closingLine}
 
 Με αγάπη,
-George
+George ${signatureEmoji}
 & οι γονείς του
 Δάκης & Γεωργία`;
 
   return { subject, html, text };
+}
+
+export function guestConfirmationEmail({ fullName }: Pick<GuestData, "fullName">) {
+  return buildGuestEmail({
+    fullName,
+    subject: "Ευχαριστούμε για την επιβεβαίωση παρουσίας! 🤍",
+    paragraphs: [
+      "Η απάντησή σας μας γέμισε χαρά!",
+      "Σας ευχαριστούμε που αποδεχθήκατε την πρόσκλησή μας και θα είστε μαζί μας στη βάφτιση του μικρού μας.",
+      "Ανυπομονούμε να σας υποδεχθούμε σε μια ημέρα γεμάτη αγάπη, όμορφες στιγμές και... αρώματα από το αγαπημένο μας bakery!",
+    ],
+    closingLine: "Ραντεβού στη γιορτή μας!",
+    signatureEmoji: "🥖",
+  });
+}
+
+export function guestRegretEmail({ fullName }: Pick<GuestData, "fullName">) {
+  return buildGuestEmail({
+    fullName,
+    subject: "Ευχαριστούμε για την ενημέρωση! 🤍",
+    paragraphs: [
+      "Λυπούμαστε που δεν θα μπορέσετε να μοιραστείτε μαζί μας αυτή τη γλυκιά στιγμή.",
+      "Σας ευχαριστούμε που μας ενημερώσατε και για τις όμορφες ευχές σας. Η αγάπη σας είναι πάντα το πιο πολύτιμο συστατικό της ημέρας μας.",
+      "Ευχόμαστε να ανταμώσουμε πολύ σύντομα, σε μια άλλη όμορφη περίσταση.",
+    ],
+    closingLine: "Σας ευχαριστούμε ΑΠΟ ΚΑΡΔΙΑΣ!",
+    signatureEmoji: "🥄",
+  });
 }
 
 export function hostNotificationEmail(guest: GuestData) {
