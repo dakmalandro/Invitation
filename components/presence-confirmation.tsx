@@ -149,17 +149,22 @@ export function PresenceConfirmation() {
   const imageRef = useRef<HTMLDivElement>(null);
 
   const [attending, setAttending] = useState<"yes" | "no">("yes");
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [dismissedAt, setDismissedAt] = useState<number | undefined>(
+    undefined,
+  );
 
   const [state, formAction, pending] = useActionState(
     submitPresenceConfirmation,
     initialPresenceConfirmationState,
   );
 
+  const showConfirmation =
+    state.status === "success" &&
+    state.submittedAt !== undefined &&
+    state.submittedAt !== dismissedAt;
+
   useEffect(() => {
     if (state.status !== "success" || !state.submittedAt) return;
-
-    setShowConfirmation(true);
 
     const origins = [
       { x: 0.2, y: 0.7 },
@@ -181,7 +186,7 @@ export function PresenceConfirmation() {
   }, [state.submittedAt, state.status]);
 
   const handleConfirmationClose = () => {
-    setShowConfirmation(false);
+    setDismissedAt(state.submittedAt);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

@@ -111,7 +111,7 @@ function buildGuestEmail({
             </tr>
             <tr>
               <td>
-                <img src="${SITE_URL}/bye2.png" alt="" width="420" style="display:block;width:100%;height:auto;" />
+                <img src="${SITE_URL}/bye2.png" alt="George's Bakery Invitation" width="420" style="display:block;width:100%;height:auto;" />
               </td>
             </tr>
           </table>

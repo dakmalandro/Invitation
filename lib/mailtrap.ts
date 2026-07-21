@@ -4,7 +4,7 @@ export const HOST_NOTIFICATION_EMAIL = "gew7kous@gmail.com";
 
 export const MAILTRAP_SENDER = {
   name: process.env.MAILTRAP_SENDER_NAME ?? "Βάπτιση του George",
-  email: process.env.MAILTRAP_SENDER_EMAIL ?? "no-reply@example.com",
+  email: process.env.MAILTRAP_SENDER_EMAIL ?? "invitation@georgearabas.org",
 };
 
 let client: MailtrapClient | null = null;
