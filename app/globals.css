@@ -184,3 +184,15 @@
     @apply font-sans;
   }
 }
+
+/*
+ * Instagram's (and Facebook's) in-app "safe browser" webview doesn't
+ * subtract its own persistent chrome from dvh/lvh, so those units end up
+ * taller than what's actually visible there. in-app-viewport-fix.tsx
+ * detects that webview and measures the real height into --ig-vh; this
+ * rule is intentionally unlayered so it outranks the h-lvh utility above
+ * regardless of source order, and only ever applies under .ig-webview.
+ */
+html.ig-webview .h-lvh {
+  height: var(--ig-vh, 100lvh);
+}
