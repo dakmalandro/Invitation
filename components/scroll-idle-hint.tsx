@@ -8,7 +8,7 @@ const OLIVE = "#aca58b";
 const OLIVE_GLOW = "rgba(172,165,139,0.65)";
 const AMBER = "#ffb703";
 const AMBER_GLOW = "rgba(255,183,3,0.65)";
-const IDLE_MS = 6000;
+const IDLE_MS = 3000;
 
 function BigScrollPill() {
   const scopeRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ function BigScrollPill() {
             borderColor: OLIVE,
             filter: `drop-shadow(0 0 10px ${OLIVE_GLOW})`,
           },
-          0
+          0,
         )
         .to(
           "[data-hint-dot]",
@@ -38,7 +38,7 @@ function BigScrollPill() {
             backgroundColor: OLIVE,
             boxShadow: `0 0 10px 2px ${OLIVE_GLOW}`,
           },
-          0
+          0,
         );
     }, scopeRef);
 
@@ -119,6 +119,6 @@ export function ScrollIdleHint({ active }: { active: boolean }) {
       }`}>
       <BigScrollPill />
     </div>,
-    document.body
+    document.body,
   );
 }
