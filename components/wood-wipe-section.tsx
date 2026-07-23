@@ -107,13 +107,11 @@ export function WoodWipeSection({
             tint the page behind it, not the section stacked underneath here */}
         <div className='absolute inset-0 -z-10 bg-accent' />
         {children}
-        {/* hero keeps the bottom pill; the other sections rely on the idle
-            "keep scrolling" popup instead, so the bottom pill would be
-            redundant there */}
+        {/* hero additionally keeps the small bottom pill */}
         {showScrollLabel && <ScrollDownIndicator />}
       </div>
 
-      {!showScrollLabel && <ScrollIdleHint active={isPinActive} />}
+      <ScrollIdleHint active={isPinActive} />
 
       <div
         ref={rollerRef}

@@ -9,6 +9,9 @@ const OLIVE_GLOW = "rgba(172,165,139,0.65)";
 const AMBER = "#ffb703";
 const AMBER_GLOW = "rgba(255,183,3,0.65)";
 const IDLE_MS = 3000;
+// after it's already been shown once for a given section, give the user
+// more breathing room before nagging them again
+const REPEAT_IDLE_MS = 12000;
 
 function BigScrollPill() {
   const scopeRef = useRef<HTMLDivElement>(null);
@@ -79,16 +82,22 @@ export function ScrollIdleHint({ active }: { active: boolean }) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const activeRef = useRef(active);
   activeRef.current = active;
+  const hasShownRef = useRef(false);
 
   useEffect(() => setMounted(true), []);
 
   // dismisses the popup and restarts the idle countdown — used for both
-  // scroll and a direct tap on the backdrop
+  // scroll and a direct tap on the backdrop. subsequent appearances wait
+  // longer than the first so it doesn't nag once the user knows to scroll
   const arm = useCallback(() => {
     setVisible(false);
     if (timerRef.current) clearTimeout(timerRef.current);
     if (activeRef.current) {
-      timerRef.current = setTimeout(() => setVisible(true), IDLE_MS);
+      const delay = hasShownRef.current ? REPEAT_IDLE_MS : IDLE_MS;
+      timerRef.current = setTimeout(() => {
+        hasShownRef.current = true;
+        setVisible(true);
+      }, delay);
     }
   }, []);
 
